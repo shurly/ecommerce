@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
           integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    @yield('scriptjs')
     <title>E-commerce</title>
 </head>
 <body>
@@ -18,6 +19,12 @@
             <a href="{{route('home')}}" class="nav-link">Home</a>
             <a href="{{route('category')}}" class="nav-link">Categoria</a>
             <a href="{{route('register')}}" class="nav-link">Cadastrar</a>
+            @if(!\Illuminate\Support\Facades\Auth::user())
+                <a href="{{route('login')}}" class="nav-link">Login</a>
+            @else
+                <a href="{{route('login')}}" class="nav-link">Logout</a>
+
+            @endif
         </div>
     </div>
     <a href="{{ route('see.cart') }}" class="btn btn-sm"><i class="fa fa-shopping-cart"></i></a>
@@ -25,7 +32,26 @@
 
 <div class="container">
     <div class="row">
-       @yield('content')
+        @if(\Auth::user())
+            <div class="col-12">
+                <p class="text-right">Seja bem vindo</p>
+            </div>
+        @endif
+
+
+        @if($message = Session::get('error'))
+            <div class="col-12">
+                <div class="alert alert-danger">{{ $message }}</div>
+            </div>
+        @endif
+
+        @if($message = Session::get('ok'))
+            <div class="col-12">
+                <div class="alert alert-success">{{ $message }}</div>
+            </div>
+        @endif
+
+        @yield('content')
     </div>
 </div>
 </body>

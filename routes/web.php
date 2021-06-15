@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +38,11 @@ Route::match(['get', 'post'], '/{indice}/delete/cart', [ProductController::class
  * Client
  */
 Route::match(['get', 'post'], '/register', [ClientController::class, 'register'])->name('register');
+Route::match(['get', 'post'], '/register/client', [ClientController::class, 'registerClient'])->name('register.client');
+
+/**
+ * User
+ */
+Route::match(['get', 'post'], '/login', [UserController::class, 'login'])->name('login');
 
 
