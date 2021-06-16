@@ -17,6 +17,7 @@ class ClientController extends Controller
         return view('register.register', $data);
     }
 
+    //código no controller do register... verificar mais tarde
     public function registerClient(Request $request)
     {
         //Pega todos os dados do formulário

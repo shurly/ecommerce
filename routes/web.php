@@ -33,6 +33,8 @@ Route::match(['get', 'post'], '/{idCategory}/category', [ProductController::clas
 Route::match(['get', 'post'], '/{idProduct}/cart/add', [ProductController::class, 'cartAdd'])->name('cart.add');
 Route::match(['get', 'post'], '/cart', [ProductController::class, 'seeCart'])->name('see.cart');
 Route::match(['get', 'post'], '/{indice}/delete/cart', [ProductController::class, 'deleteItemCart'])->name('delete.item.cart');
+Route::post('/finish/cart', [ProductController::class, 'finishCart'])->name('finish.cart');
+Route::match(['get', 'post'],'/my/shopping', [ProductController::class, 'myShopping'])->name('my.shopping');
 
 /**
  * Client
@@ -44,5 +46,8 @@ Route::match(['get', 'post'], '/register/client', [ClientController::class, 'reg
  * User
  */
 Route::match(['get', 'post'], '/login', [UserController::class, 'login'])->name('login');
+Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
 
+
+require __DIR__.'/auth.php';

@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Helpers\Helper;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends RModel implements Authenticatable
+
+class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use Notifiable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -42,39 +44,5 @@ class User extends RModel implements Authenticatable
     ];
 
 
-    public function getAuthIdentifierName()
-    {
-        // TODO: Implement getAuthIdentifierName() method.
 
-        return $this->getKey();
-    }
-
-    public function getAuthIdentifier()
-    {
-        // TODO: Implement getAuthIdentifier() method.
-
-        return $this->login;
-    }
-
-    public function getAuthPassword()
-    {
-        // TODO: Implement getAuthPassword() method.
-
-        return $this->password;
-    }
-
-    public function getRememberToken()
-    {
-        // TODO: Implement getRememberToken() method.
-    }
-
-    public function setRememberToken($value)
-    {
-        // TODO: Implement setRememberToken() method.
-    }
-
-    public function getRememberTokenName()
-    {
-        // TODO: Implement getRememberTokenName() method.
-    }
 }

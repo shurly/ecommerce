@@ -18,12 +18,15 @@
         <div class="navbar-nav">
             <a href="{{route('home')}}" class="nav-link">Home</a>
             <a href="{{route('category')}}" class="nav-link">Categoria</a>
-            <a href="{{route('register')}}" class="nav-link">Cadastrar</a>
+            @if(!\Illuminate\Support\Facades\Auth::user())
+                <a href="{{route('register')}}" class="nav-link">Cadastrar</a>
+            @endif
+
             @if(!\Illuminate\Support\Facades\Auth::user())
                 <a href="{{route('login')}}" class="nav-link">Login</a>
             @else
-                <a href="{{route('login')}}" class="nav-link">Logout</a>
-
+                <a href="{{route('my.shopping')}}" class="nav-link">Minhas Compras</a>
+                <a href="{{route('logout')}}" class="nav-link">Logout</a>
             @endif
         </div>
     </div>
@@ -32,12 +35,13 @@
 
 <div class="container">
     <div class="row">
-        @if(\Auth::user())
+
+        @if(\Illuminate\Support\Facades\Auth::user())
             <div class="col-12">
-                <p class="text-right">Seja bem vindo</p>
+                <p class="text-right">Seja bem vindo, {{ \Illuminate\Support\Facades\Auth::user()->name }}, <a
+                        href="{{ route('logout') }}">sair</a></p>
             </div>
         @endif
-
 
         @if($message = Session::get('error'))
             <div class="col-12">

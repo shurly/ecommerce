@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
+use App\Services\SaleService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -80,6 +83,35 @@ class ProductController extends Controller
 
         session(['cart' => $cart]);
         return redirect()->route('see.cart');
+    }
 
+    public function finishCart(Request $request)
+    {
+        $prods = session('cart', []);
+        $saleService = new SaleService();
+        $result = $saleService->finishSale($prods, Auth::user());
+
+        if($result['status'] == 'ok')
+        {
+            $request->session()->forget('cart');
+        }
+
+        $request->session()->flash($result['status'], $result['message']);
+        return redirect()->route('see.cart');
+    }
+
+    public function myShopping(Request $request)
+    {
+        $data = [];
+
+        //Pegar o ID do usuário logado
+        $idUser = Auth::user()->id;
+
+        $listOrder = Order::where('user_id', $idUser)
+            ->orderBy('orderdate', 'desc')
+            ->get();
+        $data['list'] = $listOrder;
+
+        return view('shopping.historic', $data);
     }
 }

@@ -20,7 +20,7 @@ class UserController extends Controller
             $credential = ['email' => $login, 'password' => $password];
 
             //Login
-            if(auth::attempt($credential))
+            if(Auth::attempt($credential))
             {
                return redirect()->route('home');
             }
@@ -32,5 +32,13 @@ class UserController extends Controller
         }
 
         return view('login.login', $data);
+    }
+
+    public function logout(Request $request)
+    {
+        //deslogar o usuário
+        Auth::logout();
+
+        return redirect()->route('home');
     }
 }
