@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\OrderItems;
 use App\Models\Product;
 use App\Services\SaleService;
 use Illuminate\Http\Request;
@@ -113,5 +114,19 @@ class ProductController extends Controller
         $data['list'] = $listOrder;
 
         return view('shopping.historic', $data);
+    }
+
+    public function details(Request $request)
+    {
+        $idOrder = $request->input('idOrder');
+
+        $listItem = OrderItems::join('products', 'products.id', '=', 'order_items.product_id')
+                                ->where('order_id', $idOrder)
+                                ->get(['order_items.*', 'order_items.price as priceItem', 'products.*']);
+
+        $data = [];
+        $data['listItem'] = $listItem;
+
+        return view('shopping.details', $data);
     }
 }

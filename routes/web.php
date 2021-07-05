@@ -35,6 +35,7 @@ Route::match(['get', 'post'], '/cart', [ProductController::class, 'seeCart'])->n
 Route::match(['get', 'post'], '/{indice}/delete/cart', [ProductController::class, 'deleteItemCart'])->name('delete.item.cart');
 Route::post('/finish/cart', [ProductController::class, 'finishCart'])->name('finish.cart');
 Route::match(['get', 'post'],'/my/shopping', [ProductController::class, 'myShopping'])->name('my.shopping');
+Route::post('/buy/details', [ProductController::class, 'details'])->name('details');
 
 /**
  * Client
